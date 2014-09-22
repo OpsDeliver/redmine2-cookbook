@@ -108,6 +108,7 @@ end
 
 bundle_command = "#{node[:redmine][:home]}/.rbenv/shims/bundle"
 rake_command = "#{node[:redmine][:home]}/.rbenv/shims/rake"
+ruby_command = "#{node[:redmine][:home]}/.rbenv/shims/ruby"
 bundle_install_command = case node[:redmine][:db][:type]
   when 'sqlite'
     "#{bundle_command} install --without development test mysql postgresql rmagick"
@@ -135,7 +136,7 @@ execute "RAILS_ENV='production' #{rake_command} generate_secret_token" do
   not_if { ::File.exists?("#{node[:redmine][:home]}redmine-#{node[:redmine][:version]}/config/initializers/secret_token.rb") }
 end
 
-execute "ruby script/rails server webrick -e production" do
+execute "#{ruby_command} script/rails server webrick -e production" do
   user node[:redmine][:user]
   cwd "#{node[:redmine][:home]}/redmine-#{node[:redmine][:version]}"
   not_if { ::File.exists?("#{node[:redmine][:home]}redmine-#{node[:redmine][:version]}/script/rails") }
