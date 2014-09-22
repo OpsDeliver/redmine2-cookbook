@@ -18,6 +18,7 @@
 #
 
 include_recipe 'mysql::client'
+include_recipe 'mysql::server'
 
 if [true, 'true'].include? node[:redmine][:create_db]
   include_recipe 'database::mysql'
