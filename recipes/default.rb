@@ -171,4 +171,7 @@ nginx_site 'redmine' do
   enable true
 end
 
+nginx_site 'default' do
+  action :disable
+end
 # Configure SCM e.g. Git
