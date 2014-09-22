@@ -136,7 +136,7 @@ execute "RAILS_ENV='production' #{rake_command} generate_secret_token" do
   not_if { ::File.exists?("#{node[:redmine][:home]}redmine-#{node[:redmine][:version]}/config/initializers/secret_token.rb") }
 end
 
-execute "#{ruby_command} script/rails server webrick -e production" do
+execute "#{ruby_command} script/rails server webrick -e production -d" do
   user node[:redmine][:user]
   cwd "#{node[:redmine][:home]}/redmine-#{node[:redmine][:version]}"
   not_if { ::File.exists?("#{node[:redmine][:home]}redmine-#{node[:redmine][:version]}/script/rails") }
