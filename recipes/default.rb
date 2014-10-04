@@ -167,6 +167,13 @@ template "#{node[:nginx][:dir]}/sites-available/redmine" do
   )
 end
 
+%w(default.conf 000-default.conf ssl.conf virtual.conf).each do |site|
+  file "#{node[:nginx][:dir]}/conf.d/#{site}" do
+    action :delete
+    backup false
+  end
+end
+
 nginx_site 'redmine' do
   enable true
 end
