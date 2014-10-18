@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+if platform_family?("rhel")
+  include_recipe 'yum::default'
+  include_recipe 'yum-epel'
+end
+
+include_recipe 'networking_basic::default'
+
 # Create a redmine OS account with the users cookbook
 user node[:redmine][:user] do
   comment 'Redmine user'
